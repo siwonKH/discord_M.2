@@ -14,3 +14,7 @@ class Menu(commands.Cog):
 
     async def cog_command_error(self, ctx: SlashContext, error: commands.CommandError):
         print('{}'.format(str(error)))
+
+
+def setup(bot):
+    bot.add_cog(Menu(bot))

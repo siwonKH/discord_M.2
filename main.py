@@ -1,7 +1,7 @@
 from discord.ext import commands
 from discord_slash import SlashCommand
 
-bot = commands.Bot(command_prefix="!@#$@#!")
+bot = commands.Bot(command_prefix="/")
 slash = SlashCommand(bot, override_type=True, sync_commands=True)
 
 
@@ -13,5 +13,4 @@ async def on_ready():
     print('-'*10)
 
 
-# bot.run('')  # M.2
-bot.run('')  # Beta M.2
+bot.run('')

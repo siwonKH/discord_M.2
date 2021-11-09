@@ -16,6 +16,7 @@ code = "R100000822"
 # ==========================================#
 
 
+print("Checking config file")
 if set_hour < 0 or set_hour > 23:
     raise Exception("Invalid Config: set_hour")
 if set_min < 0 or set_min > 59:
