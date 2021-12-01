@@ -14,4 +14,4 @@ async def on_ready():
     print('-'*10)
 
 
-bot.run('ODA3OTE3NzA3Mjc3NzYyNjIw.YB-9_w.3glf49IXESw3aN-k9CXZChA38y0')
+bot.run('')
