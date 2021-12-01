@@ -3,8 +3,8 @@ import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
 
-from modules.async_request import get_request
-from modules.async_bs4 import do_beautiful_soup
+from modules.request.async_request import get_request
+from modules.request.async_bs4 import do_beautiful_soup
 
 
 class Lyrics(commands.Cog):

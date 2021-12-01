@@ -7,10 +7,10 @@ class Menu(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.servers = {}
-        print("Initialized cog Lyrics")
+        print("Initialized cog Menu")
 
     def cog_unload(self):
-        print("closing")
+        print("closing cog Menu")
 
     async def cog_command_error(self, ctx: SlashContext, error: commands.CommandError):
         print('{}'.format(str(error)))

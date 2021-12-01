@@ -38,7 +38,6 @@ class Server:
         while True:
             await asyncio.sleep(1)
             if self.toggle:
-                # Gets from config.py
                 set_hour = config.set_hour
                 set_min = config.set_min
                 ready_hour = config.ready_hour
@@ -46,63 +45,39 @@ class Server:
 
                 guild_id = self._ctx.guild.id
 
-                # Wait Until Ready Time
-                print(f"TASK({guild_id}): waiting til {ready_hour}:{ready_min}")
                 wait_result = await self.wait_until(ready_hour, ready_min)
 
-                # if toggled before set time
                 if not wait_result:
-                    print(f"TASK({guild_id}): <!> Process Disabled")
                     continue
 
-                print(f"TASK({guild_id}): Registered process starting")
-
-                # Makes edit Embed if last msg exists
                 if self.lastAutoMsg:
-                    print(f"TASK({guild_id}): I've sent embed yesterday! Let me edit it..")
                     edit_embed = await make_embed(self.lastAutoMsgDate, self.cache.nextBreakfast, self.cache.nextLunch, self.cache.nextDinner)
                     await self.lastAutoMsg.edit(embed=edit_embed)
 
-                # Requests menu
                 breakfast = await self.bob("nextBreakfast")
                 lunch = await self.bob("nextLunch")
                 dinner = await self.bob("nextDinner")
 
                 if not self.toggle:
-                    print(f"TASK({guild_id}): <!> Process Disabled")
                     continue
 
-                # check menu
                 if len(breakfast + lunch + dinner) > 10:
                     self.lastAutoMsg = None
-                    print(f"TASK({guild_id}): There is nothing to send.")
                     continue
 
-                # Makes embed
                 embed = await make_embed("오늘 급식", breakfast, lunch, dinner)
 
-                # Waiting Until Set Time
-                print(f"TASK({guild_id}): embed ready. waiting til {set_hour}:{set_min}")
                 wait_result = await self.wait_until(set_hour, set_min)
 
-                # if toggled before set time
                 if not wait_result:
-                    print(f"TASK({guild_id}): <!> Process Disabled")
                     continue
 
-                # Embed sending Process
-                print(f"TASK({guild_id}): Sending embed")
                 embed_msg = await self.channel.send(embed=embed)
-                print(f"TASK({guild_id}): embed sent")
 
-                # saves infos to edit tomorrow
                 today = datetime.datetime.now()
                 self.lastAutoMsg = embed_msg
                 self.lastAutoMsgDate = f'{today.month}월 {today.day}일 급식'
 
-                # wait 1m to prevent process loop
-                print(f"TASK({guild_id}): waiting 1 minute")
-                print("-" * 30)
                 await asyncio.sleep(60)
 
     async def bob(self, b_type):
